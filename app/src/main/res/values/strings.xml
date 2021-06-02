@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Vespera de Ano Novo</string>
+    <string name="app_name">Véspera de Ano Novo</string>
+    <string name="dias_restantes_para_o_fim_do_ano">Dias restantes para o fim do ano</string>
+    <string name="voc_vai_participar">Você vai participar?</string>
 </resources>
