@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:padding="8dp"
-    tools:context=".DetailsActivity">
+    tools:context=".view.DetailsActivity">
 
     <TextView
         android:id="@+id/text_label"
@@ -25,11 +25,12 @@
         android:background="@color/colorPrimary" />
 
     <CheckBox
+        android:id="@+id/check_participate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/view_line"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="333dp"
+        android:layout_marginTop="300dp"
         android:text="@string/voc_vai_participar"
         android:textSize="16sp" />
 
