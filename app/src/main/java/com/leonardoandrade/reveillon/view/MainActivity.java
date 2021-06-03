@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.leonardoandrade.reveillon.R;
+import com.leonardoandrade.reveillon.constant.ReveillonConstants;
+import com.leonardoandrade.reveillon.data.SercurityPreferences;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -16,12 +18,15 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ViewHolder mViewHolder = new ViewHolder();
+    private SercurityPreferences mPreferences;
     private static final SimpleDateFormat SIMPLES_DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        this.mPreferences = new SercurityPreferences(this);
 
         this.mViewHolder.textToday = findViewById(R.id.text_today);
         this.mViewHolder.textDaysLeft = findViewById(R.id.text_days_left);
@@ -33,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.mViewHolder.textToday.setText(SIMPLES_DATE_FORMAT.format(Calendar.getInstance().getTime()));
         this.mViewHolder.textDaysLeft.setText(daysLeft);
 
+        this.verifyPrensence();
     }
 
     @Override
@@ -40,6 +46,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (v.getId() == R.id.button_confirm) {
             Intent intent = new Intent(this, DetailsActivity.class);
             startActivity(intent);
+        }
+    }
+
+    private void verifyPrensence() {
+        String presence = this.mPreferences.getStoreString(ReveillonConstants.PRESENCE_KEY);
+        if (presence.equals("")) {
+            this.mViewHolder.buttonConfirm.setText(R.string.nao_confirmado);
+        } else if (presence.equals(ReveillonConstants.CONFIRMATION_YES)) {
+            this.mViewHolder.buttonConfirm.setText(R.string.sim);
+        } else {
+            this.mViewHolder.buttonConfirm.setText(R.string.nao);
         }
     }
 
