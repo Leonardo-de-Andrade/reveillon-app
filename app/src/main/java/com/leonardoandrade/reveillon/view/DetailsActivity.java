@@ -30,7 +30,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.check_participate) {
-            if (this.mViewHolder.checkParticipate.isChecked() == true) {
+            if (this.mViewHolder.checkParticipate.isChecked()) {
                 this.mPreferences.storeString(ReveillonConstants.PRESENCE_KEY, ReveillonConstants.CONFIRMATION_YES);
             } else {
                 this.mPreferences.storeString(ReveillonConstants.PRESENCE_KEY, ReveillonConstants.CONFIRMATION_NO);
@@ -42,9 +42,9 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             String presence = extras.getString(ReveillonConstants.PRESENCE_KEY);
-            if (presence != null && presence == ReveillonConstants.CONFIRMATION_YES) {
+            if (presence != null && presence.equals(ReveillonConstants.CONFIRMATION_YES))
                 this.mViewHolder.checkParticipate.setChecked(true);
-            } else {
+            else {
                 this.mViewHolder.checkParticipate.setChecked(false);
             }
         }

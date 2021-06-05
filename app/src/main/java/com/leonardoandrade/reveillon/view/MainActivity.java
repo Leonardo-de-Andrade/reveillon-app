@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         this.mViewHolder.buttonConfirm.setOnClickListener(this);
 
-        String daysLeft = String.format("%s %s", String.valueOf(this.getDaysLeft()), getString(R.string.dias));
+        String daysLeft = String.format("%s %s", this.getDaysLeft(), getString(R.string.dias));
         this.mViewHolder.textToday.setText(SIMPLES_DATE_FORMAT.format(Calendar.getInstance().getTime()));
         this.mViewHolder.textDaysLeft.setText(daysLeft);
 
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.button_confirm) {
-            String presence = this.mPreferences.getStoreString(ReveillonConstants.PRESENCE_KEY);
+            String presence = this.mPreferences.getStoredString(ReveillonConstants.PRESENCE_KEY);
             Intent intent = new Intent(this, DetailsActivity.class);
             intent.putExtra(ReveillonConstants.PRESENCE_KEY, presence);
             startActivity(intent);
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void verifyPresence() {
-        String presence = this.mPreferences.getStoreString(ReveillonConstants.PRESENCE_KEY);
+        String presence = this.mPreferences.getStoredString(ReveillonConstants.PRESENCE_KEY);
         if (presence.equals("")) {
             this.mViewHolder.buttonConfirm.setText(R.string.nao_confirmado);
         } else if (presence.equals(ReveillonConstants.CONFIRMATION_YES)) {

@@ -15,7 +15,7 @@ public class SercurityPreferences {
         this.mSharedPreferences.edit().putString(key, value).apply();
     }
 
-    public String getStoreString(String key) {
+    public String getStoredString(String key) {
         return this.mSharedPreferences.getString(key, "");
     }
 }
