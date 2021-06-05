@@ -4,9 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.TextView;
 
 import com.leonardoandrade.reveillon.R;
 import com.leonardoandrade.reveillon.constant.ReveillonConstants;
@@ -23,14 +21,16 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_details);
 
         this.mPreferences = new SercurityPreferences(this);
-        this.mViewHolder.checkParticepate = findViewById(R.id.check_participate);
-        this.mViewHolder.checkParticepate.setOnClickListener(this);
+        this.mViewHolder.checkParticipate = findViewById(R.id.check_participate);
+        this.mViewHolder.checkParticipate.setOnClickListener(this);
+
+        this.loadDataFromActivity();
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.check_participate) {
-            if (this.mViewHolder.checkParticepate.isChecked() == true) {
+            if (this.mViewHolder.checkParticipate.isChecked() == true) {
                 this.mPreferences.storeString(ReveillonConstants.PRESENCE_KEY, ReveillonConstants.CONFIRMATION_YES);
             } else {
                 this.mPreferences.storeString(ReveillonConstants.PRESENCE_KEY, ReveillonConstants.CONFIRMATION_NO);
@@ -38,12 +38,19 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    private void loadDataFromActivity() {
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String presence = extras.getString(ReveillonConstants.PRESENCE_KEY);
+            if (presence != null && presence == ReveillonConstants.CONFIRMATION_YES) {
+                this.mViewHolder.checkParticipate.setChecked(true);
+            } else {
+                this.mViewHolder.checkParticipate.setChecked(false);
+            }
+        }
+    }
+
     private static class ViewHolder {
-        TextView textToday;
-        TextView textDaysLeft;
-        CheckBox checkParticepate;
-        Button buttonConfirm;
-
-
+        CheckBox checkParticipate;
     }
 }
